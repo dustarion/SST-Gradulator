@@ -14,6 +14,13 @@
 		5C26E2242047E8F400D5B564 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C26E2222047E8F400D5B564 /* LaunchScreen.storyboard */; };
 		5C26E22F2047E8F400D5B564 /* GradulatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C26E22E2047E8F400D5B564 /* GradulatorTests.swift */; };
 		5C26E23A2047E8F400D5B564 /* GradulatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C26E2392047E8F400D5B564 /* GradulatorUITests.swift */; };
+		5C26E2482047E99800D5B564 /* setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C26E2472047E99800D5B564 /* setup.swift */; };
+		5C26E24A2047EC6500D5B564 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C26E2492047EC6500D5B564 /* GraphView.swift */; };
+		5C26E24C2047EC8800D5B564 /* GraphCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C26E24B2047EC8800D5B564 /* GraphCellTableViewCell.swift */; };
+		5C26E24E2047EDDA00D5B564 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C26E24D2047EDDA00D5B564 /* TableViewController.swift */; };
+		5C26E2502049398B00D5B564 /* ResultsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C26E24F2049398B00D5B564 /* ResultsModel.swift */; };
+		5C26E255204D13D900D5B564 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C26E254204D13D900D5B564 /* Functions.swift */; };
+		5C26E257204D219B00D5B564 /* dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C26E256204D219B00D5B564 /* dummy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +54,13 @@
 		5C26E2352047E8F400D5B564 /* GradulatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GradulatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C26E2392047E8F400D5B564 /* GradulatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradulatorUITests.swift; sourceTree = "<group>"; };
 		5C26E23B2047E8F400D5B564 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5C26E2472047E99800D5B564 /* setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setup.swift; sourceTree = "<group>"; };
+		5C26E2492047EC6500D5B564 /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		5C26E24B2047EC8800D5B564 /* GraphCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphCellTableViewCell.swift; sourceTree = "<group>"; };
+		5C26E24D2047EDDA00D5B564 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		5C26E24F2049398B00D5B564 /* ResultsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsModel.swift; sourceTree = "<group>"; };
+		5C26E254204D13D900D5B564 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		5C26E256204D219B00D5B564 /* dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +91,7 @@
 		5C26E20D2047E8F400D5B564 = {
 			isa = PBXGroup;
 			children = (
+				5C26E2472047E99800D5B564 /* setup.swift */,
 				5C26E2182047E8F400D5B564 /* Gradulator */,
 				5C26E22D2047E8F400D5B564 /* GradulatorTests */,
 				5C26E2382047E8F400D5B564 /* GradulatorUITests */,
@@ -97,12 +112,16 @@
 		5C26E2182047E8F400D5B564 /* Gradulator */ = {
 			isa = PBXGroup;
 			children = (
+				5C26E258204D2DF900D5B564 /* Functions */,
 				5C26E2192047E8F400D5B564 /* AppDelegate.swift */,
 				5C26E21B2047E8F400D5B564 /* ViewController.swift */,
+				5C26E2492047EC6500D5B564 /* GraphView.swift */,
 				5C26E21D2047E8F400D5B564 /* Main.storyboard */,
-				5C26E2202047E8F400D5B564 /* Assets.xcassets */,
+				5C26E24D2047EDDA00D5B564 /* TableViewController.swift */,
+				5C26E24B2047EC8800D5B564 /* GraphCellTableViewCell.swift */,
 				5C26E2222047E8F400D5B564 /* LaunchScreen.storyboard */,
 				5C26E2252047E8F400D5B564 /* Info.plist */,
+				5C26E2202047E8F400D5B564 /* Assets.xcassets */,
 			);
 			path = Gradulator;
 			sourceTree = "<group>";
@@ -123,6 +142,16 @@
 				5C26E23B2047E8F400D5B564 /* Info.plist */,
 			);
 			path = GradulatorUITests;
+			sourceTree = "<group>";
+		};
+		5C26E258204D2DF900D5B564 /* Functions */ = {
+			isa = PBXGroup;
+			children = (
+				5C26E256204D219B00D5B564 /* dummy.swift */,
+				5C26E254204D13D900D5B564 /* Functions.swift */,
+				5C26E24F2049398B00D5B564 /* ResultsModel.swift */,
+			);
+			path = Functions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,7 +289,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C26E21C2047E8F400D5B564 /* ViewController.swift in Sources */,
+				5C26E24E2047EDDA00D5B564 /* TableViewController.swift in Sources */,
+				5C26E2502049398B00D5B564 /* ResultsModel.swift in Sources */,
+				5C26E255204D13D900D5B564 /* Functions.swift in Sources */,
+				5C26E24C2047EC8800D5B564 /* GraphCellTableViewCell.swift in Sources */,
 				5C26E21A2047E8F400D5B564 /* AppDelegate.swift in Sources */,
+				5C26E2482047E99800D5B564 /* setup.swift in Sources */,
+				5C26E257204D219B00D5B564 /* dummy.swift in Sources */,
+				5C26E24A2047EC6500D5B564 /* GraphView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

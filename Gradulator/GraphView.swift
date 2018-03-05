@@ -42,13 +42,21 @@ import UIKit
   }
   
   //1 - the properties for the gradient
-  @IBInspectable var startColor: UIColor = .red
-  @IBInspectable var endColor: UIColor = .green
+  @IBInspectable var startColor: UIColor?
+  @IBInspectable var endColor: UIColor?
   
   //Weekly sample data
   var graphPoints: [Int] = [4, 2, 6, 4, 5, 8, 3]
   
   override func draw(_ rect: CGRect) {
+    // Check if colours were set
+    if startColor == nil {
+        startColor = UIColor.red
+    }
+    if endColor == nil {
+        endColor = UIColor.green
+    }
+    
     
     let width = rect.width
     let height = rect.height
@@ -60,7 +68,7 @@ import UIKit
     
     //2 - get the current context
     let context = UIGraphicsGetCurrentContext()!
-    let colors = [startColor.cgColor, endColor.cgColor]
+    let colors = [startColor?.cgColor, endColor?.cgColor]
     
     //3 - set up the color space
     let colorSpace = CGColorSpaceCreateDeviceRGB()
