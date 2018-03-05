@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Disk
 
 class TableViewController: UITableViewController {
 var resultsList = [ResultsModel]()
@@ -17,10 +18,15 @@ var resultsList = [ResultsModel]()
         
         // Obtaining our saved results object from memory using userDefaults
         // TODO: Are there better options for memory persistence aside from userDefaults?
-        let userDefaults = UserDefaults.standard
-        let decoded  = userDefaults.object(forKey: "Results") as! Data
-        let resultsList = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! [ResultsModel]
-        print(resultsList)
+        do{
+        let retrievedResultsList = try Disk.retrieve("Gradulator/Results.json", from: .documents, as: [ResultsModel].self)
+        print(retrievedResultsList)
+        resultsList = retrievedResultsList
+        print (resultsList)
+        } catch {
+            print(error.localizedDescription)
+        }
+        print("DID IT WORK?")
     }
 
     override func didReceiveMemoryWarning() {

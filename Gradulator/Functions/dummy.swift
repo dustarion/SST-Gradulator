@@ -15,6 +15,7 @@
  var results: [Int]?
  */
 import Foundation
+import Disk
 
 /// Purpose of this file is to hold functions that insert dummy data for the purpose of testing.
 var resultsList = [ResultsModel]()
@@ -23,11 +24,11 @@ func insertDummyResults() {
     insertDummyResults1()
     insertDummyResults2()
     insertDummyResults3()
-    
-    let userDefaults = UserDefaults.standard
-    let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: resultsList)
-    userDefaults.set(encodedData, forKey: "Results")
-    userDefaults.synchronize()
+    do {
+        try Disk.save(resultsList, to: .documents, as: "Gradulator/ChemistryResults.json")
+    } catch {
+        print(error.localizedDescription)
+    }
 }
 
 

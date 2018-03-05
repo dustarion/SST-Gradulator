@@ -7,6 +7,7 @@
 //
 import Foundation
 
+/*
 class ResultsModel {
     
     var id: String?
@@ -49,6 +50,16 @@ class ResultsModel {
         aCoder.encode(tests, forKey:"tests")
         aCoder.encode(results, forKey:"results")
     }
+}*/
+
+struct ResultsModel: Codable {
+    let id: String?
+    let user: String?
+    let subject: String?
+    let goal: Int?
+    let currentPercentage : Int?
+    let tests: [String]?
+    let results: [Int]?
 }
 /*
  // To allow us to retrieve this data from a plist file.

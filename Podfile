@@ -6,6 +6,7 @@ target 'Gradulator' do
   use_frameworks!
 
   # Pods for Gradulator
+  pod 'Disk', '~> 0.3.3'
 
   target 'GradulatorTests' do
     inherit! :search_paths
