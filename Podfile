@@ -7,6 +7,7 @@ target 'Gradulator' do
 
   # Pods for Gradulator
   pod 'Disk', '~> 0.3.3'
+  pod 'SearchTextField'
 
   target 'GradulatorTests' do
     inherit! :search_paths

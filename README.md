@@ -32,6 +32,7 @@ Please also import the google.info.plist, from firebase.
 ## Built With
 
 * [Disk](https://github.com/saoudrizwan/Disk) - Data Persistence
+* [SearchTextField](https://github.com/apasccon/SearchTextField) - Autocomplete Textfields
 
 
 ## Authors
