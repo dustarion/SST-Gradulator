@@ -16,17 +16,22 @@ var resultsList = [ResultsModel]()
         super.viewDidLoad()
         self.tableView.backgroundColor = uicolorFromHex(rgbValue: 0x434261)
         
-        // Obtaining our saved results object from memory using userDefaults
-        // TODO: Are there better options for memory persistence aside from userDefaults?
+        // Obtaining our saved results object from memory
+        // TODO: Are there better options for memory persistence
         do{
         let retrievedResultsList = try Disk.retrieve("Gradulator/Results.json", from: .documents, as: [ResultsModel].self)
         print(retrievedResultsList)
         resultsList = retrievedResultsList
         print (resultsList)
-        } catch {
+        
+        // Reload the tableview now that we have new data. It should be able to load correctly now.
+        tableView.reloadData()
+        
+        }
+        
+        catch {
             print(error.localizedDescription)
         }
-        print("DID IT WORK?")
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,7 +49,7 @@ var resultsList = [ResultsModel]()
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 4
+        return resultsList.count
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -57,15 +62,28 @@ var resultsList = [ResultsModel]()
         // Creating a cell using the custom class
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! GraphCellTableViewCell
         
-        // Setting up the cell
-        cell.setGraphPoints = [1, 2, 3, 4, 5, 6, 7]
+        let resultData: ResultsModel
+        resultData = resultsList[indexPath.row]
+        
+        // Loading the data into the cell.
+        cell.setGraphPoints = resultData.results
+        cell.subject.text = resultData.subject
         cell.setStartColor = uicolorFromHex(rgbValue: 0x9862FF)
         cell.setEndColor = uicolorFromHex(rgbValue: 0x7C30FE)
-        cell.subject.text = "Chemistry"
+        
+        // Setting up the cell
+        //cell.setGraphPoints = [1, 2, 3, 4, 5, 6, 7]
+        //cell.setStartColor = uicolorFromHex(rgbValue: 0x9862FF)
+        //cell.setEndColor = uicolorFromHex(rgbValue: 0x7C30FE)
+        //cell.subject.text = "Chemistry"
         
         // Append these changes to the cell
         cell.setupGraphDisplay()
         return cell
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
     }
     /*
     // MARK: - Navigation

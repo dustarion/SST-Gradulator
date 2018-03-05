@@ -5,15 +5,6 @@
 //  Created by Dalton Ng on 5/3/18.
 //  Copyright © 2018 AppsLab. All rights reserved.
 //
-/*
- var id: String?
- var user: String?
- var subject: String?
- var goal: Int?
- var currentPercentage : Int?
- var tests: [String]?
- var results: [Int]?
- */
 import Foundation
 import Disk
 
