@@ -16,7 +16,7 @@ func insertDummyResults() {
     insertDummyResults2()
     insertDummyResults3()
     do {
-        try Disk.save(resultsList, to: .documents, as: "Gradulator/ChemistryResults.json")
+        try Disk.save(resultsList, to: .documents, as: "Gradulator/Results.json")
     } catch {
         print(error.localizedDescription)
     }
@@ -61,32 +61,3 @@ func insertDummyResults3() {
     let results = [40, 60, 70, 30]
     resultsList.append(ResultsModel(id: id, user: user, subject: subject, goal: goal, currentPercentage: currentPercentage, tests: tests, results: results))
 }
-
-
-
-
-
-
-
-
-
-
-
-/*
- 
- let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory,FileManager.SearchPathDomainMask.allDomainsMask, true)
- let path: AnyObject = paths[0] as AnyObject
- let arrPath = path.appending("/ResultsModel.plist")
- //NSKeyedArchiver.archiveRootObject(peopleArray, toFile: arrPath)
- 
- Storing the array :
- let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory,NSSearchPathDomainMask.AllDomainsMask, true)
- let path: AnyObject = paths[0]
- let arrPath = path.stringByAppendingString("/ResultsModel.plist")
- NSKeyedArchiver.archiveRootObject(peopleArray, toFile: arrPath)
- 
- Retrieving :
- if let tempArr: [ResultsModel] = NSKeyedUnarchiver.unarchiveObjectWithFile(arrPath) as? [ResultsModel] {
- peopleArray = tempArr
- }
- */

@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import TokenRow
 
-class ViewController: FormViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
+    @IBOutlet weak var test: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()

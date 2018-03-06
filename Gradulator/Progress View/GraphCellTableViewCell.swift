@@ -37,9 +37,9 @@ class GraphCellTableViewCell: UITableViewCell {
     
     func setupGraphDisplay() {
         
-        // Ensure we don't accidentally crash, we'll display an empty graph alternatively
+        // Ensure we don't accidentally crash, we'll display an empty graph alternatively to keep the ux smooth.
         if setGraphPoints == nil {
-            setGraphPoints = [0, 0, 0, 0, 0, 0, 0]
+            setGraphPoints = [0, 0, 0, 0]
         }
         
         // Append the actual data or our dummy data to the actual graph

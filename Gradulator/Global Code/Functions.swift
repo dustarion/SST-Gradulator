@@ -22,3 +22,10 @@ func uicolorFromHex(rgbValue:UInt32)->UIColor{
 }
 
 // MARK: -
+/// Add padding to the beginning of a textfield.
+/// paddingAmount must be an integer.
+func addPaddingToTextfield (paddingAmount: Int, textfield: UITextField) {
+    let paddingHeight = UIView(frame: CGRect(x: 0, y: 0, width: paddingAmount, height: Int(textfield.frame.height)))
+    textfield.leftView = paddingHeight
+    textfield.leftViewMode = UITextFieldViewMode.always
+}
