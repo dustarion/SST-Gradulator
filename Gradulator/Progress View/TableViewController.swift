@@ -10,7 +10,7 @@ import UIKit
 import Disk
 
 class TableViewController: UITableViewController {
-var resultsList = [ResultsModel]()
+//var resultsList = [ResultsModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,12 +71,6 @@ var resultsList = [ResultsModel]()
         cell.setStartColor = uicolorFromHex(rgbValue: 0x9862FF)
         cell.setEndColor = uicolorFromHex(rgbValue: 0x7C30FE)
         
-        // Setting up the cell
-        //cell.setGraphPoints = [1, 2, 3, 4, 5, 6, 7]
-        //cell.setStartColor = uicolorFromHex(rgbValue: 0x9862FF)
-        //cell.setEndColor = uicolorFromHex(rgbValue: 0x7C30FE)
-        //cell.subject.text = "Chemistry"
-        
         // Append these changes to the cell
         cell.setupGraphDisplay()
         return cell
@@ -84,6 +78,9 @@ var resultsList = [ResultsModel]()
     
     override func viewDidAppear(_ animated: Bool) {
         tableView.reloadData()
+    }
+    @IBAction func AddButton(_ sender: Any) {
+        performSegue(withIdentifier: "toAddResult", sender: self)
     }
     /*
     // MARK: - Navigation

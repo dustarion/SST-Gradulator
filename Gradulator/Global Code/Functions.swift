@@ -9,10 +9,12 @@
 import Foundation
 import UIKit
 
+// Global Objects
+var resultsList = [ResultsModel]()
+
 // MARK: -
 /// Obtain a uiColor from a Hex value.
 /// You might need to add a '0x' to the beginning of your Hex value.
-//  Porting over a colour over rgb is painful.
 func uicolorFromHex(rgbValue:UInt32)->UIColor{
     let red = CGFloat((rgbValue & 0xFF0000) >> 16)/256.0
     let green = CGFloat((rgbValue & 0xFF00) >> 8)/256.0
@@ -29,3 +31,154 @@ func addPaddingToTextfield (paddingAmount: Int, textfield: UITextField) {
     textfield.leftView = paddingHeight
     textfield.leftViewMode = UITextFieldViewMode.always
 }
+
+// MARK: -
+/// Calculate Grade based on a percentage using Singapore's Academic Grading System. Returns as a String.
+/// TODO: Provide support for multiple grading systems internationally.
+/// Based on the table found at : https://en.wikipedia.org/wiki/Academic_grading_in_Singapore.
+func returnGrade (ofPercentage: Int) -> String {
+    if ofPercentage > 100 {
+        print("Error : Percentage too large")
+        return "Error"
+    }
+    else {
+        switch ofPercentage {
+            case 0..<40:
+                return "F9"
+            case 40..<45:
+                return "E8"
+            case 45..<50:
+                return "D7"
+            case 50..<55:
+                return "C6"
+            case 55..<60:
+                return "C5"
+            case 60..<65:
+                return "B4"
+            case 65..<70:
+                return "B3"
+            case 70..<75:
+                return "A2"
+            case 75...100:
+                return "A1"
+            default:
+                print("Error : Percentage too small")
+                return "Error"
+            }
+    }
+}
+
+// MARK: -
+/// Return the percentage of a given Grade as a float. (e.g A1 returns 75)
+/// Prefer given grade in the format F9, but will still return a suitable percentage for the case of f9.
+/// If the given grade doesn't exist, we will return 75, a default of A1
+/// TODO: Provide support for multiple grading systems internationally.
+/// Based on the table found at : https://en.wikipedia.org/wiki/Academic_grading_in_Singapore.
+func returnPercentage (ofGrade: String) -> Double {
+    switch ofGrade {
+    case "F9","f9":
+        return 0
+    case "E8","e8":
+        return 40
+    case "D7","d7":
+        return 45
+    case "C6","c6":
+        return 50
+    case "C5","c5":
+        return 55
+    case "B4","b4":
+        return 60
+    case "B3","b3":
+        return 65
+    case "A2","a2":
+        return 70
+    case "A1","a1":
+        return 75
+    default:
+        // Setting to a default of A1
+        return 75
+    }
+}
+
+// MARK: -
+/// Return the remaining weightage available after removing everything else.
+/// Uses the contents of results list.
+func returnRemainingWeightage (ofSubject: String) -> Double {
+    // Obtain an individual ResultData object for the subject in question.
+    let subjectData = resultsList.first(where: { $0.subject == ofSubject })
+    
+    // If there is data in subjectData
+    if !(subjectData == nil) {
+    
+        // Further filter to obtain the array of weightages
+        let weightageArray = subjectData?.weightage
+        
+        // Add up the elements in the array to find the total weightage
+        // 100 - above value to get remaining weightage
+        let remainingweightage = 100.0 - (weightageArray?.reduce(0, +))!
+        
+        // Return the remaining weightage, if there are no elements, it should return 100.
+        return remainingweightage
+    }
+        
+    // The expected subjectData doesn't exist, likely first time creation, return 100.
+    else {
+        return 100.0
+    }
+}
+
+// MARK: -
+/// Return the calculated weightage.
+func calculateWeightage (percentage: Int, weightage: Double) -> Double {
+    let percentageDouble = Double(percentage)
+    let calculatedWeightage = percentageDouble * (weightage / 100)
+    return calculatedWeightage
+}
+
+// MARK: -
+/// Calculates how much to score on next test.
+/// Can return a value greater than 100 or a negative value.
+/// For purposes of informing the user if obtaining goal is not possible, greater than 100 will be handled in viewcontroller.
+func returnScoreNextTest (underSubject: String, percentage: Int, weightage: Double) -> Int {
+    
+    // Obtain an individual ResultData object for the subject in question.
+    let subjectData = resultsList.first(where: { $0.subject == underSubject })
+    // If there is data in subjectData
+    if !(subjectData == nil) {
+        
+        var resultsArray = subjectData?.results
+        resultsArray?.append(percentage)
+        
+        var weightagesArray = subjectData?.weightage
+        weightagesArray?.append(weightage)
+        
+        var WeightagesTotalArray: [Double] = []
+        for (perc, weight) in zip(resultsArray!, weightagesArray!) {
+            WeightagesTotalArray.append(calculateWeightage(percentage: perc, weightage: weight))
+        }
+        print(WeightagesTotalArray)
+        
+        if !(subjectData?.goal == nil) {
+            let markToScoreNextTest = ( ( ( Double((subjectData?.goal)!) - (WeightagesTotalArray.reduce(0, +)) ) / returnRemainingWeightage(ofSubject: underSubject) ) * 100 )
+            return Int(markToScoreNextTest)
+        }
+            
+        // No goal set, defaulting to a default goal of 75% or A1
+        else {
+            return 75
+        }
+    }
+        
+    // The expected subjectData doesn't exist, likely first time creation, return 75.
+    else {
+        return 75
+    }
+}
+
+
+
+
+
+
+
+

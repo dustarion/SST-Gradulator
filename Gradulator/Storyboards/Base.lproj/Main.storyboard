@@ -100,16 +100,19 @@
                     <navigationItem key="navigationItem" title="Progress" id="b11-DA-jwo">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="E37-Et-1Qg">
                             <connections>
-                                <segue destination="fCg-8D-MSq" kind="show" id="BPL-NT-J06"/>
+                                <action selector="AddButton:" destination="tm5-kN-epd" id="lO0-ab-dGX"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="oNp-Ez-aM0" kind="presentation" identifier="toAddResult" modalTransitionStyle="coverVertical" id="b7Z-JY-IIj"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hUa-kQ-aZT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-258.39999999999998" y="-8.5457271364317844"/>
         </scene>
-        <!--Creation Table View Controller-->
+        <!--Add Result-->
         <scene sceneID="LSb-vy-wFl">
             <objects>
                 <tableViewController id="fCg-8D-MSq" customClass="CreationTableViewController" customModule="Gradulator" customModuleProvider="target" sceneMemberID="viewController">
@@ -132,7 +135,7 @@
                                                     <rect key="frame" x="27" y="23" width="320" height="358"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                                 </imageView>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Subject (e.g Biology)" textAlignment="natural" minimumFontSize="17" background="FormTextField" translatesAutoresizingMaskIntoConstraints="NO" id="oeD-lN-1oA">
+                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Subject (e.g Biology)" textAlignment="natural" minimumFontSize="17" background="FormTextField" translatesAutoresizingMaskIntoConstraints="NO" id="oeD-lN-1oA" customClass="SearchTextField" customModule="Gradulator" customModuleProvider="target">
                                                     <rect key="frame" x="45" y="62" width="284" height="38"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                                     <nil key="textColor"/>
@@ -146,7 +149,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Test Name (e.g CA1)" textAlignment="natural" minimumFontSize="17" background="FormTextField" translatesAutoresizingMaskIntoConstraints="NO" id="u6A-nW-Lpz">
+                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Test Name (e.g CA1)" textAlignment="natural" minimumFontSize="17" background="FormTextField" translatesAutoresizingMaskIntoConstraints="NO" id="u6A-nW-Lpz" customClass="SearchTextField" customModule="Gradulator" customModuleProvider="target">
                                                     <rect key="frame" x="45" y="148" width="284" height="38"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                                     <nil key="textColor"/>
@@ -215,6 +218,18 @@
                             <outlet property="delegate" destination="fCg-8D-MSq" id="9so-oz-J9Q"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Add Result" id="fTV-zG-tIH">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="EBM-wS-TCK">
+                            <connections>
+                                <action selector="CancelButton:" destination="fCg-8D-MSq" id="94L-o8-w6W"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="NQp-hW-2hw">
+                            <connections>
+                                <action selector="DoneButton:" destination="fCg-8D-MSq" id="tHj-bM-slW"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="percentageTextField" destination="fqR-JX-3tA" id="92G-sa-pfB"/>
                         <outlet property="subjectTextField" destination="oeD-lN-1oA" id="Qkm-FL-zze"/>
@@ -224,7 +239,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h49-eK-30G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="516" y="-12.143928035982009"/>
+            <point key="canvasLocation" x="1302" y="-13"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Add-SB-XrQ">
@@ -241,6 +256,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vPq-of-3DD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1210" y="-8"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="kfB-CY-nRi">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="oNp-Ez-aM0" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="L9i-Iy-kX5">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="fCg-8D-MSq" kind="relationship" relationship="rootViewController" id="4fM-dm-zlh"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f3F-3k-Rwf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="515.20000000000005" y="-12.593703148425789"/>
         </scene>
     </scenes>
     <resources>

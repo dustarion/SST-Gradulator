@@ -9,7 +9,6 @@ import Foundation
 import Disk
 
 /// Purpose of this file is to hold functions that insert dummy data for the purpose of testing.
-var resultsList = [ResultsModel]()
 
 func insertDummyResults() {
     insertDummyResults1()
@@ -33,7 +32,8 @@ func insertDummyResults1() {
     let currentPercentage = 35
     let tests = ["CA1", "SA1", "CA2", "SA2"]
     let results = [10, 5, 50, 75]
-    resultsList.append(ResultsModel(id: id, user: user, subject: subject, goal: goal, currentPercentage: currentPercentage, tests: tests, results: results))
+    let weightage = [25.0, 25.0, 25.0, 25.0]
+    resultsList.append(ResultsModel(id: id, user: user, subject: subject, goal: goal, currentPercentage: currentPercentage, tests: tests, results: results, weightage: weightage))
 }
 
 func insertDummyResults2() {
@@ -46,7 +46,8 @@ func insertDummyResults2() {
     let currentPercentage = 61
     let tests = ["CA1", "SA1", "CA2", "SA2"]
     let results = [50, 75, 50, 70]
-    resultsList.append(ResultsModel(id: id, user: user, subject: subject, goal: goal, currentPercentage: currentPercentage, tests: tests, results: results))
+    let weightage = [25.0, 25.0, 35.0, 15.0]
+    resultsList.append(ResultsModel(id: id, user: user, subject: subject, goal: goal, currentPercentage: currentPercentage, tests: tests, results: results, weightage: weightage))
 }
 
 func insertDummyResults3() {
@@ -55,9 +56,11 @@ func insertDummyResults3() {
     let id  = "3"
     let user = "test"
     let subject = "English"
-    let goal = 60
+    let goal = 50
     let currentPercentage = 50
-    let tests = ["CA1", "SA1", "CA2", "SA2"]
-    let results = [40, 60, 70, 30]
-    resultsList.append(ResultsModel(id: id, user: user, subject: subject, goal: goal, currentPercentage: currentPercentage, tests: tests, results: results))
+    let tests = ["SA1", "CA2", "SA2"]
+    let results = [60, 70, 30]
+    let weightage = [10.0, 40.0, 25.0]
+    resultsList.append(ResultsModel(id: id, user: user, subject: subject, goal: goal, currentPercentage: currentPercentage, tests: tests, results: results, weightage: weightage
+    ))
 }
