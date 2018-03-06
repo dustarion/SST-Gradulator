@@ -7,18 +7,21 @@
 //
 import Foundation
 
+/// Stores the results under a subject
 struct ResultsModel: Codable {
-    let id: String?
-    let user: String?
-    let subject: String?
-    let goal: Int?
-    let currentPercentage : Int?
-    let tests: [String]?
-    let results: [Int]?
-    let weightage: [Double]?
+    var id: String?
+    var user: String?
+    var subject: String?
+    var goal: Int?
+    var currentPercentage : Int?
+    var tests: [String]?
+    var results: [Int]?
+    var weightage: [Double]?
 }
 
 /// Legacy Code
+/// Remove before production
+/// Keeping here purely for reference reasons
 /*
  // To allow us to retrieve this data from a plist file.
  init (coder aDecoder: NSCoder!) {

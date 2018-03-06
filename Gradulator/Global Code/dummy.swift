@@ -9,6 +9,7 @@ import Foundation
 import Disk
 
 /// Purpose of this file is to hold functions that insert dummy data for the purpose of testing.
+/// Remove before production along with all calls to this file.
 
 func insertDummyResults() {
     insertDummyResults1()
@@ -26,7 +27,7 @@ func insertDummyResults1() {
     // Define our dummy data
 
     let id  = "1"
-    let user = "test"
+    let user = "Local"
     let subject = "Chemistry"
     let goal = 75
     let currentPercentage = 35
@@ -40,7 +41,7 @@ func insertDummyResults2() {
     // Define our dummy data
     
     let id  = "2"
-    let user = "test"
+    let user = "Local"
     let subject = "Physics"
     let goal = 100
     let currentPercentage = 61
@@ -54,7 +55,7 @@ func insertDummyResults3() {
     // Define our dummy data
     
     let id  = "3"
-    let user = "test"
+    let user = "Local"
     let subject = "English"
     let goal = 50
     let currentPercentage = 50

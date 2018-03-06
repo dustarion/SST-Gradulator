@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SCLAlertView
 
 class CreationTableViewController: UITableViewController {
     
@@ -16,12 +17,14 @@ class CreationTableViewController: UITableViewController {
     @IBOutlet weak var percentageTextField: UITextField!
     @IBOutlet weak var weightageTextField: UITextField!
     
+    // Setup some Arrays for autocomplete fields
     var subjectList = ["English","Physics","Chemistry", "Biology"]
     var testList = ["CA1","CA2","SA1", "SA2"]
 
      // Called in viewDidLoad
     /// Setup the view
     fileprivate func setupCreationView() {
+        
         self.tableView.backgroundColor = uicolorFromHex(rgbValue: 0x434261)
         // Loops the function for each of the textfields
         [subjectTextField, testnameTextField, percentageTextField, weightageTextField].forEach { (textfields) in
@@ -52,25 +55,31 @@ class CreationTableViewController: UITableViewController {
         let subject = subjectTextField.text
         let testname = testnameTextField.text
         var percentage = (percentageTextField.text! as NSString).integerValue
-        var weightage = (weightageTextField.text! as NSString).doubleValue
+        let weightage = (weightageTextField.text! as NSString).doubleValue
         
         // First Check for Nil Values, percentage and weightage will automatically become 0 if left empty due to the nature of .integerValue and .doubleValue
         illegalCheck: if !((subject == nil) && (testname == nil)) {
         // No Fields are nil, checking for illegal values...
             
             // Subject
-            guard !(subjectList.contains(subject!)) else { break illegalCheck }
+            if !(subjectList.contains(subject!)) {
                 // New Subject, check for character limit of 10.
-            guard subject!.count <= 10 else { break illegalCheck }
+            guard subject!.count <= 10 else {
+                SCLAlertView().showWarning("Subject has too many characters", subTitle: "Sorry, there is a character limit of 10 for the subject name. Consider using a shorter version of the name?")
+                break illegalCheck }
                     // 10 or less characters, safe to continue
                     // TODO: Save to stored array of subjects
+            }
             
             // Testname
-            guard !(testList.contains(testname!)) else { break illegalCheck }
+            if !(testList.contains(testname!)) {
                 // New Test, check for character limit of 10.
-            guard testname!.count <= 10 else { break illegalCheck }
+            guard testname!.count <= 10 else {
+                SCLAlertView().showWarning("Test has too many characters", subTitle: "Sorry, there is a character limit of 10 for the test name. Consider using a shorter version of the name?")
+                break illegalCheck }
                     // 10 or less characters, safe to continue
                     // TODO: Save to stored array of tests
+            }
             
             // Percentage must be between 0...100
             if percentage > 100 {
@@ -81,7 +90,10 @@ class CreationTableViewController: UITableViewController {
             }
             
             // Weightage
-            guard !(weightage > returnRemainingWeightage(ofSubject: subject!)) else { break illegalCheck }
+            guard !(weightage > returnRemainingWeightage(ofSubject: subject!)) else {
+                SCLAlertView().showWarning("Result Weightage Exceeds 100%", subTitle: "Your total weightage exceeds 100%, we've set the weightage to the maximum possible value for you.")
+                weightageTextField.text = String(returnRemainingWeightage(ofSubject: subject!))
+                break illegalCheck }
             
             // Since all values are fine or have been corrected, continue with saving result
             print("Saving Result : ", subject ?? "nil", testname ?? "nil", percentage, weightage)
@@ -93,14 +105,18 @@ class CreationTableViewController: UITableViewController {
             let markToScoreNext = returnScoreNextTest(underSubject: subject!, percentage: percentage, weightage: weightage)
             
             print(grade, markToScoreNext)
-            // Save Grade
-        }
+            // Save Grade to disc
+            saveNewResultToDisk(ofSubject: subject!, withTestname: testname!, withResult: percentage, withWeightage: weightage)
         
+            // Show a popup to the user so they know their results.
+            showResultPopup(grade: grade, nextTestScore: String(markToScoreNext))
+        }
         // Nil Field Somewhere
         // TODO: Determine exactly which field is nil
         else {
             print("Nil Values Detected")
             // Show popup that fields are nil
+            SCLAlertView().showWarning("Some fields are empty!", subTitle: "Check if you forgot to fill up any info.")
         }
     }
     
@@ -122,8 +138,24 @@ class CreationTableViewController: UITableViewController {
 
     @IBAction func DoneButton(_ sender: Any) {
         saveResult()
-        //dismiss(animated: true, completion: nil)
     }
+        
+    fileprivate func showResultPopup(grade: String, nextTestScore: String) {
+            print("Show Result Popup")
+            let appearance = SCLAlertView.SCLAppearance(
+                showCloseButton: false
+            )
+            // Initialize SCLAlertView using custom Appearance
+            let alert = SCLAlertView(appearance: appearance)
+            alert.addButton("Done") {
+                print("Escaping to the main view")
+                self.dismiss(animated: true, completion: nil)
+            }
+        
+            // Show the popup
+            alert.showInfo("Results", subTitle: "Your grade is \(grade)! Score \(nextTestScore)% on your next test to hit your goal.")
+    }
+}
     
     /*
     /// TODO: Find a better solution
@@ -138,5 +170,3 @@ class CreationTableViewController: UITableViewController {
         }
         tableView.contentOffset = contentOffset
     }*/
-    
-}

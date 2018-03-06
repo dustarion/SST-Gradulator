@@ -8,9 +8,12 @@
 
 import Foundation
 import UIKit
+import Disk
 
 // Global Objects
 var resultsList = [ResultsModel]()
+var subjectList = [String]()
+var testsList = [String]()
 
 // MARK: -
 /// Obtain a uiColor from a Hex value.
@@ -175,10 +178,124 @@ func returnScoreNextTest (underSubject: String, percentage: Int, weightage: Doub
     }
 }
 
+// MARK: -
+/// This function relies on Disk, found in pods.
+/// This will save the current state of resultsList to disk.
+func saveCurrentStateOfresultsList () {
+    do {
+        try Disk.save(resultsList, to: .documents, as: "Gradulator/Results.json")
+    } catch {
+        print(error.localizedDescription)
+    }
+}
 
+// MARK: -
+/// This function relies on Disk, found in pods.
+/// Will append a new result to its existing place or create a new subject in resultsList.
+/// Calls saveCurrentStateOfresultsList() in order to save to Disk
+func saveNewResultToDisk (ofSubject: String, withTestname: String, withResult: Int, withWeightage: Double) {
+    // Check if there is an existing entry in our Results.json for the specified subject
+    if resultsList.contains(where: { $0.subject == ofSubject }) {
+        // There is an existing entry, lets append the data to it
+        let indexValue = resultsList.index(where: { $0.subject == ofSubject })
+        // Add these to the global resultsList
+        resultsList[indexValue!].tests?.append(withTestname)
+        resultsList[indexValue!].results?.append(withResult)
+        resultsList[indexValue!].weightage?.append(withWeightage)
+        
+        // Save To Disk
+        saveCurrentStateOfresultsList()
+    } else {
+        // The subject doesn't exist, its a new subject.
+        // Create a new object for this subject.
+        let id  = String(resultsList.count + 1)
+        let user = "Local"
+        let subject = ofSubject
+        let goal = 75
+        let currentPercentage = 0
+        let tests = [withTestname]
+        let results = [withResult]
+        let weightage = [withWeightage]
+        resultsList.append(ResultsModel(id: id, user: user, subject: subject, goal: goal, currentPercentage: currentPercentage, tests: tests, results: results, weightage: weightage))
+        // Save to Disk
+        saveCurrentStateOfresultsList()
+    }
+}
 
+// MARK: -
+/// This function relies on Disk, found in pods.
+/// Will append or update a new goal to its existing place or create a new goal in resultsList.
+/// Calls saveCurrentStateOfresultsList() in order to save to Disk
+func saveNewGoalToDisk (ofSubject: String, ofGoal: Int) {
+    // Check if there is an existing entry in our Results.json for the specified subject
+    if resultsList.contains(where: { $0.subject == ofSubject }) {
+        // There is an existing entry, lets append the data to it
+        let indexValue = resultsList.index(where: { $0.subject == ofSubject })
+        // Add these to the global resultsList
+        resultsList[indexValue!].goal = ofGoal
+        // Save To Disk
+        saveCurrentStateOfresultsList()
+    } else {
+        // The subject doesn't exist, its a new subject.
+        // Create a new object for this subject.
+        let id  = String(resultsList.count + 1)
+        let user = "Local"
+        let subject = ofSubject
+        let goal = ofGoal
+        let currentPercentage = 0
+        let tests = [String]()
+        let results = [Int]()
+        let weightage = [Double]()
+        resultsList.append(ResultsModel(id: id, user: user, subject: subject, goal: goal, currentPercentage: currentPercentage, tests: tests, results: results, weightage: weightage))
+        // Save to Disk
+        saveCurrentStateOfresultsList()
+    }
+}
 
+// MARK: -
+/// This function relies on Disk, found in pods.
+/// This will save the current state of subjectList to disk.
+func saveCurrentStateOfsubjectList () {
+    do {
+        try Disk.save(subjectList, to: .documents, as: "Gradulator/Subjects.json")
+    } catch {
+        print(error.localizedDescription)
+    }
+}
 
+// MARK: -
+/// This function relies on Disk, found in pods.
+/// Will add a new subject to the stored array of subjects.
+/// Purely to make it easier for the user to add results
+func saveNewSubjectToDisk(subject: String) {
+    // Double check if the subject already exists just for safety reasons
+    if !(subjectList.contains(subject)) {
+        subjectList.append(subject)
+        saveCurrentStateOfsubjectList()
+    }
+    else { return }
+}
 
+// MARK: -
+/// This function relies on Disk, found in pods.
+/// This will save the current state of testsList to disk.
+func saveCurrentStateOftestsList () {
+    do {
+        try Disk.save(testsList, to: .documents, as: "Gradulator/Tests.json")
+    } catch {
+        print(error.localizedDescription)
+    }
+}
 
-
+// MARK: -
+/// This function relies on Disk, found in pods.
+/// Will add a new testName to the stored array of testnames.
+/// Purely to make it easier for the user to add results
+func saveNewTestToDisk(test: String) {
+    // Double check if the test already exists just for safety reasons
+    if !(testsList.contains(test)) {
+        subjectList.append(test)
+        saveCurrentStateOftestsList()
+    }
+    else { return }
+}
