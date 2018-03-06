@@ -33,11 +33,12 @@ Please also import the google.info.plist, from firebase.
 
 * [Disk](https://github.com/saoudrizwan/Disk) - Data Persistence
 * [SearchTextField](https://github.com/apasccon/SearchTextField) - Autocomplete Textfields
+* [SCLAlertView](https://github.com/vikmeup/SCLAlertView-Swift) - Notifications and Popups
 
 
 ## Authors
 
-* **Dalton Prescott** - *Main Developer* - [website](daltonprescott.com)
+* **Dalton Prescott** - *Main Developer* - [website](https://www.daltonprescott.com)  [github](https://github.com/dustarion)
 
 ## Acknowledgments
 * Hat tip to anyone who's code was used
