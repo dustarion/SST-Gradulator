@@ -306,31 +306,39 @@ func testDividible (int: Int, by:Int) -> Bool {
 }
 
 // MARK: -
-/// This function returns an array of 2 hexvalues which are a gradient, used for making the main ui look nice.
-/// Currentlyy contains purple green orange or pink.
+/// This function returns an array of 2 hexvalues which are a gradient.
+/// Currently this is used for making the main ui look nice.
+/// Currently contains purple, green, orange, pink.
 /// To designate a specific colour pass a value from 0 - 3 into the function.
 /// 0 returns purple, 1 returns green, 2 returns Orange, 3 returns Pinks
 /// returns [startColour, endColour]
 func generateGradient (indexValue: Int) -> [UInt32] {
     
-                         // Purple      Green       Orange      Pink
-    let startColourArray =  [0x9862FF,  0x2AF598,   0xFF9B0B,   0xFE6A88]
-    let endColourArray =    [0x7C30FE,  0x08AEEA,   0xFD4F00,   0xC850C0]
+    let startColourArray =  [0x9862FF,  // Purple Index 0
+                             0x2AF598,  // Green Index 1
+                             0xFF9B0B,  // Orange Index 2
+                             0xFE6A88]  // Pink Index 3
+    
+    let endColourArray =    [0x7C30FE,  // Purple Index 0
+                             0x08AEEA,  // Green Index 1
+                             0xFD4F00,  // Orange Index 2
+                             0xC850C0]  // Pink Index 3
     
     // If indexvalue is 0...3.
     if (indexValue >= 0) && (indexValue <= 3) {
         return [UInt32(startColourArray[indexValue]), UInt32(endColourArray[indexValue])]
     }
-        
     // If indexvalue is greater than 3.
     // Effectively loop through the array such that passing 4 would return the object at index 0, and so forth.
     else if (indexValue > 3) {
-        let indexLoopedValue = indexValue % 4
+        // Using the % operator, we obtain the remainder after dividing by 4,
+        // thus allowing us to reset the index of the array
+        let indexLoopedValue = ( indexValue % 4 )
         return [UInt32(startColourArray[indexLoopedValue]), UInt32(endColourArray[indexLoopedValue])]
     }
-    
     // Likely will never be executed, exists for safety reasons only.
     else {
+        // This returns the standard purple array.
         return [UInt32(startColourArray[0]), UInt32(endColourArray[0])]
     }
 }
