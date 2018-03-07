@@ -41,14 +41,7 @@ class TableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    /*
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }*/
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return resultsList.count
     }
     
@@ -73,6 +66,10 @@ class TableViewController: UITableViewController {
         
         // Append these changes to the cell
         cell.setupGraphDisplay()
+        
+        // Prevent the ugly selection overlay
+        cell.selectionStyle = .none
+        
         return cell
     }
     
@@ -82,29 +79,18 @@ class TableViewController: UITableViewController {
     @IBAction func AddButton(_ sender: Any) {
         performSegue(withIdentifier: "toAddResult", sender: self)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "toSubjectView", sender: self)
     }
-     func setupGraphDisplay(view: GraphView) {
-     // Indicate that the graph needs to be redrawn
-     view.setNeedsDisplay()
-     view.maxLabel.text = "\(view.graphPoints.max()!)"
-     
-     // Potentially the interferance point to calculate the percentage of the goal!
-     //  3 - calculate average from graphPoints
-     let average = view.graphPoints.reduce(0, +) / view.graphPoints.count
-     view.averageWaterDrunk.text = "\(average)"
-     }
-     
-     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-     {
-     return 230.0 //Choose your custom row height
-     }
-    */
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // We're about to transition to the article view controller, push all the data we need to display along with it.
+        if let destinationViewController = segue.destination as? SubjectTableViewController {
+            let indexPath = tableView.indexPathForSelectedRow
+            print("Selected cell #\(indexPath!.row)!")
+            let indexPathToPass = indexPath
+            
+            destinationViewController.indexPathOfSubject = indexPathToPass?.row
+        }
+    }
 }

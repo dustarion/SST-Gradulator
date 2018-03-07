@@ -7,7 +7,6 @@ target 'Gradulator' do
 
   # Pods for Gradulator
   pod 'Disk', '~> 0.3.3'
-  pod 'SearchTextField'
   pod 'SCLAlertView', '~> 0.8'
 
   target 'GradulatorTests' do

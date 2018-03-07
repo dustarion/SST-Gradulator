@@ -8,6 +8,7 @@
 
 import UIKit
 import SCLAlertView
+//import SearchTextField
 
 class CreationTableViewController: UITableViewController {
     
@@ -39,7 +40,7 @@ class CreationTableViewController: UITableViewController {
             
             // Modify current theme properties
             textfields?.theme.font = UIFont.systemFont(ofSize: 14.0)
-            textfields?.theme.bgColor = UIColor (red: 0.9, green: 0.9, blue: 0.9, alpha: 0.9)
+            textfields?.theme.bgColor = UIColor (red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
             textfields?.theme.borderColor = UIColor (red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
             textfields?.theme.separatorColor = UIColor (red: 0.9, green: 0.9, blue: 0.9, alpha: 0.5)
             textfields?.theme.cellHeight = 40
