@@ -61,8 +61,11 @@ class TableViewController: UITableViewController {
         // Loading the data into the cell.
         cell.setGraphPoints = resultData.results
         cell.subject.text = resultData.subject
-        cell.setStartColor = uicolorFromHex(rgbValue: 0x9862FF)
-        cell.setEndColor = uicolorFromHex(rgbValue: 0x7C30FE)
+        
+        // Alternate the colours of the graph
+        let colors = generateGradient(indexValue: indexPath.row)
+        cell.setStartColor = uicolorFromHex(rgbValue: colors[0])
+        cell.setEndColor = uicolorFromHex(rgbValue: colors[1])
         
         // Append these changes to the cell
         cell.setupGraphDisplay()
