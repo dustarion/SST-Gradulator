@@ -8,6 +8,7 @@ target 'Gradulator' do
   # Pods for Gradulator
   pod 'Disk', '~> 0.3.3'
   pod 'SCLAlertView', '~> 0.8'
+  pod 'DeviceKit', '~> 1.3.0'
 
   target 'GradulatorTests' do
     inherit! :search_paths

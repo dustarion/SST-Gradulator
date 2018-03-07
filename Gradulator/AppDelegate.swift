@@ -16,17 +16,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        insertDummyResults()
+        // Uses userDefaults to determine if its the first time launch or not
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+         if launchedBefore  { print("Not first launch.") }
+         else { print("First launch, setting UserDefault. Injecting code for the initial setup.")
+                UserDefaults.standard.set(true, forKey: "launchedBefore")
+            
+                // Remove before production.
+                // Inserts dummy values for purposes of testing.
+                insertDummyResults()
+            
+                // Do not Remove, this links to a function which contains the approriate setup code.
+                setupFirstLaunchOfApp()
+        }
         
-        /*
-         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
-         if launchedBefore  {
-         print("Not first launch.")
-         } else {
-         print("First launch, setting UserDefault.")
-         UserDefaults.standard.set(true, forKey: "launchedBefore")
-         }
-         */
+        setupNavBar()
+        
         return true
     }
 

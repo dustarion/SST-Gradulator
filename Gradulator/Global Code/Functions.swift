@@ -18,6 +18,7 @@ var testsList = [String]()
 // MARK: -
 /// Obtain a uiColor from a Hex value.
 /// You might need to add a '0x' to the beginning of your Hex value.
+/// Pass in a value of type UInt32
 func uicolorFromHex(rgbValue:UInt32)->UIColor{
     let red = CGFloat((rgbValue & 0xFF0000) >> 16)/256.0
     let green = CGFloat((rgbValue & 0xFF00) >> 8)/256.0
@@ -66,7 +67,9 @@ func returnGrade (ofPercentage: Int) -> String {
                 return "A1"
             default:
                 print("Error : Percentage too small")
-                return "Error"
+                // Exists for safety reasons
+                // Return F9 to prevent a crash
+                return "F9"
             }
     }
 }
@@ -269,6 +272,7 @@ func saveCurrentStateOfsubjectList () {
 /// Purely to make it easier for the user to add results
 func saveNewSubjectToDisk(subject: String) {
     // Double check if the subject already exists just for safety reasons
+    // Reject if there is alreadu a subject with the same name existing.
     if !(subjectList.contains(subject)) {
         subjectList.append(subject)
         saveCurrentStateOfsubjectList()
@@ -294,13 +298,17 @@ func saveCurrentStateOftestsList () {
 func saveNewTestToDisk(test: String) {
     // Double check if the test already exists just for safety reasons
     if !(testsList.contains(test)) {
-        subjectList.append(test)
+        testsList.append(test)
         saveCurrentStateOftestsList()
     }
     else { return }
 }
 
-func testDividible (int: Int, by:Int) -> Bool {
+// MARK: -
+/// This function returns a true/false boolean.
+/// If its divisible (a remainder of 0) it will return true
+/// Else return false.
+func testDivisibility (int: Int, by:Int) -> Bool {
     if int % by == 0 { return true }
     else { return false }
 }
@@ -341,4 +349,38 @@ func generateGradient (indexValue: Int) -> [UInt32] {
         // This returns the standard purple array.
         return [UInt32(startColourArray[0]), UInt32(endColourArray[0])]
     }
+}
+
+// MARK: -
+/// This function relies on Disk, found in pods.
+/// There is currently no proper use for this function but it will be vital in future implementations.
+/// TODO: Encrypt this data before storing it to disc, also provide decryption functions.
+/// Perhaps we can store in keychain.
+func createNewUser(name: String, firebaseID: String) {
+    let userObject = [name, firebaseID]
+    do {
+        try Disk.save(userObject, to: .documents, as: "Gradulator/FirebaseUserEncrypted")
+    } catch {
+        print(error.localizedDescription)
+    }
+}
+
+func loadFromDisk () {
+    
+    // Load SubjectsList
+    do{
+        let retrievedSubjectList = try Disk.retrieve("Gradulator/Subjects.json", from: .documents, as: [String].self)
+        print(retrievedSubjectList)
+        subjectList = retrievedSubjectList
+        print (subjectList) }
+    catch { print(error.localizedDescription) }
+    
+    // Load testsList
+    do{
+        let retrievedtestList = try Disk.retrieve("Gradulator/Tests.json", from: .documents, as: [String].self)
+        print(retrievedtestList)
+        testsList = retrievedtestList
+        print (testsList) }
+    catch { print(error.localizedDescription) }
+    
 }

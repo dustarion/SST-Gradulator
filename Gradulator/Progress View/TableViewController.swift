@@ -32,6 +32,7 @@ class TableViewController: UITableViewController {
         catch {
             print(error.localizedDescription)
         }
+        loadFromDisk()
     }
 
     override func didReceiveMemoryWarning() {

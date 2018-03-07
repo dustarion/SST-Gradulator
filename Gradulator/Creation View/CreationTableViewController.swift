@@ -18,10 +18,6 @@ class CreationTableViewController: UITableViewController {
     @IBOutlet weak var percentageTextField: UITextField!
     @IBOutlet weak var weightageTextField: UITextField!
     
-    // Setup some Arrays for autocomplete fields
-    var subjectList = ["English","Physics","Chemistry", "Biology"]
-    var testList = ["CA1","CA2","SA1", "SA2"]
-
      // Called in viewDidLoad
     /// Setup the view
     fileprivate func setupCreationView() {
@@ -35,7 +31,7 @@ class CreationTableViewController: UITableViewController {
         
         // Add search capabilities to Subject Field and Testname Field
         subjectTextField.filterStrings(subjectList)
-        testnameTextField.filterStrings(testList)
+        testnameTextField.filterStrings(testsList)
         [subjectTextField, testnameTextField].forEach { (textfields) in
             
             // Modify current theme properties
@@ -59,7 +55,7 @@ class CreationTableViewController: UITableViewController {
         let weightage = (weightageTextField.text! as NSString).doubleValue
         
         // First Check for Nil Values, percentage and weightage will automatically become 0 if left empty due to the nature of .integerValue and .doubleValue
-        illegalCheck: if !((subject == nil) && (testname == nil)) {
+        illegalCheck: if !((subject == "") && (testname == "")) {
         // No Fields are nil, checking for illegal values...
             
             // Subject
@@ -73,7 +69,7 @@ class CreationTableViewController: UITableViewController {
             }
             
             // Testname
-            if !(testList.contains(testname!)) {
+            if !(testsList.contains(testname!)) {
                 // New Test, check for character limit of 10.
             guard testname!.count <= 10 else {
                 SCLAlertView().showWarning("Test has too many characters", subTitle: "Sorry, there is a character limit of 10 for the test name. Consider using a shorter version of the name?")

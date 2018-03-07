@@ -73,8 +73,9 @@ class SubjectTableViewController: UITableViewController {
                 // Loading the data into the cell.
                 cell.setGraphPoints = resultData.results
                 cell.subject.text = resultData.subject
-                cell.setStartColor = uicolorFromHex(rgbValue: 0x9862FF)
-                cell.setEndColor = uicolorFromHex(rgbValue: 0x7C30FE)
+                let colors = generateGradient(indexValue: indexPathOfSubject!)
+                cell.setStartColor = uicolorFromHex(rgbValue: colors[0])
+                cell.setEndColor = uicolorFromHex(rgbValue: colors[1])
                 
                 // Append these changes to the cell
                 cell.setupGraphDisplay()
@@ -116,6 +117,9 @@ class SubjectTableViewController: UITableViewController {
         }
     }
 
+    //MARK:-
+    /// TODO: Support editing and rearranging.
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
