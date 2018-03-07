@@ -36,11 +36,8 @@ class GraphCellTableViewCell: UITableViewCell {
     }
     
     func setupGraphDisplay() {
-        
         // Ensure we don't accidentally crash, we'll display an empty graph alternatively to keep the ux smooth.
-        if setGraphPoints == nil {
-            setGraphPoints = [0, 0, 0, 0]
-        }
+        if setGraphPoints == nil { setGraphPoints = [1, 2] }
         
         // Append the actual data or our dummy data to the actual graph
         graphView.graphPoints = setGraphPoints!
@@ -54,11 +51,11 @@ class GraphCellTableViewCell: UITableViewCell {
         
         // Setup the maxLabel.text to show the maximum point on the graph
         // TODO : This should instead display the user defined goal. Default goal will be 100%
-        maxLabel.text = "\(graphView.graphPoints.max()!)"
+        maxLabel.text = "\(setGraphPoints?.max() ?? 0)"
         
         // TODO : Calculate the percentage of the goal achieved
         // Calculate average from graphPoints
-        let average = graphView.graphPoints.reduce(0, +) / graphView.graphPoints.count
-        averageValue.text = "\(average)"
+        //let average = graphView.graphPoints.reduce(0, +) / graphView.graphPoints.count
+        averageValue.text = ""
     }
 }

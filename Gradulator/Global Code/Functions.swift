@@ -80,7 +80,7 @@ func returnGrade (ofPercentage: Int) -> String {
 /// If the given grade doesn't exist, we will return 75, a default of A1
 /// TODO: Provide support for multiple grading systems internationally.
 /// Based on the table found at : https://en.wikipedia.org/wiki/Academic_grading_in_Singapore.
-func returnPercentage (ofGrade: String) -> Double {
+func returnPercentage (ofGrade: String) -> Int {
     switch ofGrade {
     case "F9","f9":
         return 0
@@ -256,6 +256,13 @@ func saveNewGoalToDisk (ofSubject: String, ofGoal: Int) {
 }
 
 // MARK: -
+/// This function determines if an object for that subject already exists.
+func doesSubjectExist(ofSubject: String) -> Bool {
+    if resultsList.contains(where: { $0.subject == ofSubject }) { return true }
+    else { return false }
+}
+
+// MARK: -
 /// This function relies on Disk, found in pods.
 /// This will save the current state of subjectList to disk.
 func saveCurrentStateOfsubjectList () {
@@ -365,6 +372,9 @@ func createNewUser(name: String, firebaseID: String) {
     }
 }
 
+// MARK: -
+/// This function relies on Disk, found in pods.
+/// Just a quick collection of code to run during setup.
 func loadFromDisk () {
     
     // Load SubjectsList
@@ -384,3 +394,5 @@ func loadFromDisk () {
     catch { print(error.localizedDescription) }
     
 }
+
+

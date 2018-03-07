@@ -10,7 +10,6 @@ import UIKit
 
 class SubjectTableViewController: UITableViewController {
     var indexPathOfSubject: Int?
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,6 +106,7 @@ class SubjectTableViewController: UITableViewController {
                 if currentIndex <= tests.count {
                 cell.setTestName = tests[currentIndex]
                 cell.setPercentage = results[currentIndex]
+                cell.showGrade = true
                 cell.setResultCell()
                 }
                 
@@ -164,5 +164,6 @@ class SubjectTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
 
 }

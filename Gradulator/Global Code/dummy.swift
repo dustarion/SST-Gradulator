@@ -9,7 +9,7 @@ import Foundation
 import Disk
 
 /// Purpose of this file is to hold functions that insert dummy data for the purpose of testing.
-/// Remove before production along with all calls to this file.
+/// Remove all calls to this file for testing.
 
 func insertDummyResults() {
     insertDummyResults1()

@@ -8,6 +8,7 @@
 
 import UIKit
 import Disk
+import SCLAlertView
 
 class TableViewController: UITableViewController {
 //var resultsList = [ResultsModel]()
@@ -60,6 +61,7 @@ class TableViewController: UITableViewController {
         resultData = resultsList[indexPath.row]
         
         // Loading the data into the cell.
+        //if resultData.results == nil { return cell }
         cell.setGraphPoints = resultData.results
         cell.subject.text = resultData.subject
         
@@ -81,7 +83,8 @@ class TableViewController: UITableViewController {
         tableView.reloadData()
     }
     @IBAction func AddButton(_ sender: Any) {
-        performSegue(withIdentifier: "toAddResult", sender: self)
+        //performSegue(withIdentifier: "toAddResult", sender: self)
+        showAddActionSheet()
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "toSubjectView", sender: self)
@@ -89,12 +92,39 @@ class TableViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // We're about to transition to the article view controller, push all the data we need to display along with it.
+        // If the destinationViewController is SubjectTableViewController,
         if let destinationViewController = segue.destination as? SubjectTableViewController {
             let indexPath = tableView.indexPathForSelectedRow
             print("Selected cell #\(indexPath!.row)!")
             let indexPathToPass = indexPath
-            
             destinationViewController.indexPathOfSubject = indexPathToPass?.row
         }
+    }
+    
+    // Action sheet with options (New Result, New Target, Cancel)
+    func showAddActionSheet() {
+        
+        // Main Title and Description
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        // Add Result
+        alert.addAction(UIAlertAction(title: "New Result", style: .default , handler:{ (UIAlertAction)in
+            alert.dismiss(animated: true, completion: nil)
+            self.performSegue(withIdentifier: "toAddResult", sender: self) }))
+        
+        // Add Goal
+        alert.addAction(UIAlertAction(title: "New Target", style: .default , handler:{ (UIAlertAction)in
+            alert.dismiss(animated: true, completion: nil)
+            self.performSegue(withIdentifier: "toAddGoal", sender: self) }))
+        
+        // Dismiss
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:{ (UIAlertAction)in alert.dismiss(animated: true, completion: nil) }))
+        
+        // Present the Action Sheet
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showAddGoal() {
+        
     }
 }

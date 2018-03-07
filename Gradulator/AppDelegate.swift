@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
                 // Remove before production.
                 // Inserts dummy values for purposes of testing.
-                insertDummyResults()
+                //insertDummyResults()
             
                 // Do not Remove, this links to a function which contains the approriate setup code.
                 setupFirstLaunchOfApp()

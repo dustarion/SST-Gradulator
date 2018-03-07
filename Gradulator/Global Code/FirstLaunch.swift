@@ -10,9 +10,11 @@ import Foundation
 import UIKit
 
 // MARK: -
-/// The purpose of this file is to hold code that will execute the first time the application launches.
+/// The purpose of this file is to hold code that will execute on application launch.
+/// Future plans would try to retrieve updated lists from firebase but for now, these are hardcoded.
 
-
+// MARK: -
+/// Executes on first time the application is launched.
 func setupFirstLaunchOfApp () {
     
     // Insert the predefined array of subjects.
@@ -34,6 +36,8 @@ func setupFirstLaunchOfApp () {
     }
 }
 
+// MARK: -
+/// Setup the NavBar to look pretty.
 func setupNavBar () {
     // Setup our custom navigation bar
     //UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)

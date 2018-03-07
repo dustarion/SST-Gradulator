@@ -8,7 +8,7 @@
 
 import UIKit
 import SCLAlertView
-//import SearchTextField
+import DeviceKit
 
 class CreationTableViewController: UITableViewController {
     
@@ -55,7 +55,9 @@ class CreationTableViewController: UITableViewController {
         let weightage = (weightageTextField.text! as NSString).doubleValue
         
         // First Check for Nil Values, percentage and weightage will automatically become 0 if left empty due to the nature of .integerValue and .doubleValue
-        illegalCheck: if !((subject == "") && (testname == "")) {
+        illegalCheck: if (subject != "") {
+            guard (testname
+                != "") else { SCLAlertView().showWarning("Some fields are empty!", subTitle: "Check if you forgot to fill up any info.") ; break illegalCheck }
         // No Fields are nil, checking for illegal values...
             
             // Subject
@@ -65,7 +67,7 @@ class CreationTableViewController: UITableViewController {
                 SCLAlertView().showWarning("Subject has too many characters", subTitle: "Sorry, there is a character limit of 10 for the subject name. Consider using a shorter version of the name?")
                 break illegalCheck }
                     // 10 or less characters, safe to continue
-                    // TODO: Save to stored array of subjects
+                saveNewSubjectToDisk(subject: subject!)
             }
             
             // Testname
@@ -75,7 +77,7 @@ class CreationTableViewController: UITableViewController {
                 SCLAlertView().showWarning("Test has too many characters", subTitle: "Sorry, there is a character limit of 10 for the test name. Consider using a shorter version of the name?")
                 break illegalCheck }
                     // 10 or less characters, safe to continue
-                    // TODO: Save to stored array of tests
+                saveNewTestToDisk(test: testname!)
             }
             
             // Percentage must be between 0...100
@@ -99,7 +101,11 @@ class CreationTableViewController: UITableViewController {
             let grade = returnGrade(ofPercentage: percentage)
             
             // Could be greater than 100 or a negative, handle this!
-            let markToScoreNext = returnScoreNextTest(underSubject: subject!, percentage: percentage, weightage: weightage)
+            var markToScoreNext = returnScoreNextTest(underSubject: subject!, percentage: percentage, weightage: weightage)
+            
+            // TODO: Handle these 2 situations better.
+            if markToScoreNext > 100 { markToScoreNext = 100 }
+            if markToScoreNext < 0 { markToScoreNext = 0 }
             
             print(grade, markToScoreNext)
             // Save Grade to disc
@@ -152,18 +158,22 @@ class CreationTableViewController: UITableViewController {
             // Show the popup
             alert.showInfo("Results", subTitle: "Your grade is \(grade)! Score \(nextTestScore)% on your next test to hit your goal.")
     }
-}
     
-    /*
-    /// TODO: Find a better solution
+    // TODO: Find a better solution
     // On Iphone SE this brings the textfield above the keyboard.
-    // Crashes above iphone SE, do not uncomment
+    // Behaves weirdly above 4 inch screens.
+    // Using a workaround first.
     @IBAction func weightageEditingDidBegin(_ sender: Any) {
-        let pointInTable:CGPoint = weightageTextField.superview!.convert(weightageTextField.frame.origin, to:tableView)
-        var contentOffset:CGPoint = tableView.contentOffset
-        contentOffset.y  = pointInTable.y
-        if let accessoryView = weightageTextField.inputAccessoryView {
-            contentOffset.y -= accessoryView.frame.size.height
+        let groupOfAllowedDevices: [Device] = [.iPhoneSE, .iPhone5s, .iPhone5, .simulator(.iPhoneSE), .simulator(.iPhone5s), .simulator(.iPhone5)]
+        let device = Device()
+        if device.isOneOf(groupOfAllowedDevices) {
+            let pointInTable:CGPoint = weightageTextField.superview!.convert(weightageTextField.frame.origin, to:tableView)
+            var contentOffset:CGPoint = tableView.contentOffset
+            contentOffset.y  = pointInTable.y
+            if let accessoryView = weightageTextField.inputAccessoryView {
+                contentOffset.y -= accessoryView.frame.size.height
+            }
+            tableView.contentOffset = contentOffset
         }
-        tableView.contentOffset = contentOffset
-    }*/
+    }
+}
