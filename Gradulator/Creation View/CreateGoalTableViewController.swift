@@ -46,6 +46,8 @@ class CreateGoalTableViewController: UITableViewController {
     // Called upon clicking the 'Done' button
     /// Process the data and save to disk.
     func saveTarget() {
+        self.view.endEditing(true)
+        
         let subject = subjectTextField.text
         let goal = targetTextField.text
         var Intgoal = Int(goal!)
@@ -70,7 +72,7 @@ class CreateGoalTableViewController: UITableViewController {
             } else {
                 // Not a percentage, determine if its an allowed grade format.
                 guard gradesList.contains(goal!.uppercased()) else {
-                    SCLAlertView().showWarning("Unknown Grade", subTitle: "Sorry, we are unable to process the grade you entered. Please use a standard grade such as A1")
+                    SCLAlertView().showWarning("Unknown Grade", subTitle: "Sorry, we are unable to process the grade you entered. Please use a standard grade such as A1. If you added with % sign, please enter numbers only.")
                     break illegalCheck }
                 // Its a valid grade
                 saveNewGoalToDisk(ofSubject: subject!, ofGoal: returnPercentage(ofGrade: goal!))

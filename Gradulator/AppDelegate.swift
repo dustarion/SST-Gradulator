@@ -21,17 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          if launchedBefore  { print("Not first launch.") }
          else { print("First launch, setting UserDefault. Injecting code for the initial setup.")
                 UserDefaults.standard.set(true, forKey: "launchedBefore")
-            
-                // Remove before production.
-                // Inserts dummy values for purposes of testing.
-                //insertDummyResults()
-            
                 // Do not Remove, this links to a function which contains the approriate setup code.
                 setupFirstLaunchOfApp()
         }
-        
         setupNavBar()
-        
         return true
     }
 

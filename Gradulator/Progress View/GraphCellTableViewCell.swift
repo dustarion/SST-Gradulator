@@ -39,23 +39,24 @@ class GraphCellTableViewCell: UITableViewCell {
         // Ensure we don't accidentally crash, we'll display an empty graph alternatively to keep the ux smooth.
         if setGraphPoints == nil { setGraphPoints = [1, 2] }
         
-        // Append the actual data or our dummy data to the actual graph
+        // Append the actual data or our dummy data to the actual graph.
         graphView.graphPoints = setGraphPoints!
         
-        // Indicate that the graph needs to be redrawn with the new data
+        // Indicate that the graph needs to be redrawn with the new data.
         graphView.setNeedsDisplay()
         
         // Set a custom gradient, we'll define the values in the cell for index row function OR we'll use the default gradient setup in GraphView.swift.
         graphView.startColor = setStartColor
         graphView.endColor = setEndColor
         
-        // Setup the maxLabel.text to show the maximum point on the graph
-        // TODO : This should instead display the user defined goal. Default goal will be 100%
+        // Setup the maxLabel.text to show the maximum point on the graph.
+        // TODO : This should instead display the user defined goal. Default goal will be 100%.
         maxLabel.text = "\(setGraphPoints?.max() ?? 0)"
         
-        // TODO : Calculate the percentage of the goal achieved
-        // Calculate average from graphPoints
-        //let average = graphView.graphPoints.reduce(0, +) / graphView.graphPoints.count
+        // TODO : Calculate the percentage of the goal achieved.
+        // Calculate average from graphPoints.
+        // let average = graphView.graphPoints.reduce(0, +) / graphView.graphPoints.count
+        // For Now we are leaving this feature out.
         averageValue.text = ""
     }
 }

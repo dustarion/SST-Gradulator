@@ -8,7 +8,6 @@
 
 import UIKit
 import SCLAlertView
-import DeviceKit
 
 class CreationTableViewController: UITableViewController {
     
@@ -17,6 +16,8 @@ class CreationTableViewController: UITableViewController {
     @IBOutlet weak var testnameTextField: SearchTextField!
     @IBOutlet weak var percentageTextField: UITextField!
     @IBOutlet weak var weightageTextField: UITextField!
+    
+    var activeField: UITextField?
     
      // Called in viewDidLoad
     /// Setup the view
@@ -44,6 +45,7 @@ class CreationTableViewController: UITableViewController {
             // When showing autocomplete suggestions
             textfields?.highlightAttributes = [NSAttributedStringKey.font:UIFont.boldSystemFont(ofSize: 14.0)]
         }
+        
     }
     
      // Called upon clicking the 'Done' button
@@ -127,7 +129,6 @@ class CreationTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCreationView()
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -144,6 +145,8 @@ class CreationTableViewController: UITableViewController {
     }
         
     fileprivate func showResultPopup(grade: String, nextTestScore: String) {
+            self.view.endEditing(true)
+        
             print("Show Result Popup")
             let appearance = SCLAlertView.SCLAppearance(
                 showCloseButton: false
@@ -157,23 +160,5 @@ class CreationTableViewController: UITableViewController {
         
             // Show the popup
             alert.showInfo("Results", subTitle: "Your grade is \(grade)! Score \(nextTestScore)% on your next test to hit your goal.")
-    }
-    
-    // TODO: Find a better solution
-    // On Iphone SE this brings the textfield above the keyboard.
-    // Behaves weirdly above 4 inch screens.
-    // Using a workaround first.
-    @IBAction func weightageEditingDidBegin(_ sender: Any) {
-        let groupOfAllowedDevices: [Device] = [.iPhoneSE, .iPhone5s, .iPhone5, .simulator(.iPhoneSE), .simulator(.iPhone5s), .simulator(.iPhone5)]
-        let device = Device()
-        if device.isOneOf(groupOfAllowedDevices) {
-            let pointInTable:CGPoint = weightageTextField.superview!.convert(weightageTextField.frame.origin, to:tableView)
-            var contentOffset:CGPoint = tableView.contentOffset
-            contentOffset.y  = pointInTable.y
-            if let accessoryView = weightageTextField.inputAccessoryView {
-                contentOffset.y -= accessoryView.frame.size.height
-            }
-            tableView.contentOffset = contentOffset
-        }
     }
 }

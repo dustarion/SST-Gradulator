@@ -11,14 +11,12 @@ import Disk
 import SCLAlertView
 
 class TableViewController: UITableViewController {
-//var resultsList = [ResultsModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.backgroundColor = uicolorFromHex(rgbValue: 0x434261)
         
         // Obtaining our saved results object from memory
-        // TODO: Are there better options for memory persistence
         do{
         let retrievedResultsList = try Disk.retrieve("Gradulator/Results.json", from: .documents, as: [ResultsModel].self)
         print(retrievedResultsList)

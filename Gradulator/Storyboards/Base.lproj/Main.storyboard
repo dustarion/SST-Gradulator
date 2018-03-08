@@ -322,9 +322,6 @@
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
-                                                    <connections>
-                                                        <action selector="weightageEditingDidBegin:" destination="fCg-8D-MSq" eventType="editingDidEnd" id="Lp4-9x-4Rd"/>
-                                                    </connections>
                                                 </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Weightage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Epk-04-766">
                                                     <rect key="frame" x="45" y="296" width="78" height="21"/>
@@ -352,6 +349,15 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" red="0.15686274510000001" green="0.21960784310000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="291" id="5lV-Wj-AOa">
+                                        <rect key="frame" x="0.0" y="382" width="375" height="291"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5lV-Wj-AOa" id="axa-bg-S4O">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="291"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -376,12 +382,12 @@
                         <outlet property="percentageTextField" destination="fqR-JX-3tA" id="92G-sa-pfB"/>
                         <outlet property="subjectTextField" destination="oeD-lN-1oA" id="Qkm-FL-zze"/>
                         <outlet property="testnameTextField" destination="u6A-nW-Lpz" id="shX-od-AHZ"/>
-                        <outlet property="weightageTextField" destination="44Q-yW-pIh" id="0Up-L3-aPg"/>
+                        <outlet property="weightageTextField" destination="44Q-yW-pIh" id="Pkq-CV-oKm"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h49-eK-30G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1348" y="-734"/>
+            <point key="canvasLocation" x="1348" y="-734.48275862068976"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Add-SB-XrQ">
