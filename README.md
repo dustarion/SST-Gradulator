@@ -1,40 +1,20 @@
 # SST-Gradulator
 An app for SST (School of Science and Technology, Singapore) for students to track their grades and set goals in order to encourage target setting and hitting those targets.
 
-## Warning
+## Welcome
 
-This is a work in progress. Code might potentially be highly unstable and/or crash randomly.
+We are pushing an update soon, the app is on the App store under the same name. Feel free to submit a pull request for any suggested features. Please submit some documentation of any non fileprivate functions used. Alot of functions to help you expand on the app's features are included in Functions.swift, it serves as sort of a mini Api which is relatively well documented.
 
-### Installing (Please Ignore for Now)
+### Installing
 
 Make sure you have pods installed. Run ``` $pod install ```
-
-Create a new file, setup.swift. Paste the following into the file. This is to keep my personal keys safe sorry.
-
-```
-import Foundation
-
-struct GlobalConstants {
-    // Haven't setup keys in the file yet.
-}
-```
-
-If you want to use these values in other areas of the app, simply call the global constant as such :
-
-```
-let string = GlobalConstants.string
-print ("Your string: ", string)
-```
-
-You can test if it's working by placing this somewhere where it will run such as ViewDidLoad.
-Please also import the google.info.plist, from firebase.
+Please use the workspace file.
 
 ## Built With
 
 * [Disk](https://github.com/saoudrizwan/Disk) - Data Persistence
 * [SearchTextField](https://github.com/apasccon/SearchTextField) - Autocomplete Textfields
 * [SCLAlertView](https://github.com/vikmeup/SCLAlertView-Swift) - Notifications and Popups
-
 
 ## Authors
 
